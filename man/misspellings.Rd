@@ -3,8 +3,7 @@
 \docType{data}
 \name{misspellings}
 \alias{misspellings}
-\title{A corpus of common misspellings, for examples and
-practice}
+\title{A corpus of common misspellings, for examples and practice}
 \format{
 An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 4505 rows and 2 columns.
 }
@@ -16,10 +15,9 @@ misspellings
 }
 \description{
 This is a code{tbl_df} mapping misspellings of their words, compiled by
-Wikipedia, where it is licensed under the CC-BY SA license.
-(Three words with non-ASCII characters were filtered out).
-If you'd like to reproduce this dataset from Wikipedia, see the example
-code below.
+Wikipedia, where it is licensed under the CC-BY SA license. (Three words with
+non-ASCII characters were filtered out). If you'd like to reproduce this
+dataset from Wikipedia, see the example code below.
 }
 \examples{
 

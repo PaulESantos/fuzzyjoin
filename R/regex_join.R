@@ -1,8 +1,8 @@
-#' Join two tables based on a regular expression in one column
-#' matching the other
+#' Join two tables based on a regular expression in one column matching the
+#' other
 #'
-#' Join a table with a string column by a regular expression column
-#' in another table
+#' Join a table with a string column by a regular expression column in another
+#' table
 #'
 #' @param x A tbl
 #' @param y A tbl
@@ -10,7 +10,7 @@
 #' @param mode One of "inner", "left", "right", "full" "semi", or "anti"
 #' @param ignore_case Whether to be case insensitive (default no)
 #'
-#' @seealso \code{\link{str_detect}}
+#' @seealso \code{\link[stringr]{str_detect}}
 #'
 #' @examples
 #'

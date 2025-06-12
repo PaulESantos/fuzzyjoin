@@ -1,11 +1,11 @@
 #' Join two tables based on absolute difference between their columns
 #'
-#' @param x A tbl
-#' @param y A tbl
-#' @param by Columns by which to join the two tables
-#' @param max_dist Maximum distance to use for joining
-#' @param distance_col If given, will add a column with this
-#' name containing the difference between the two
+#' @param x A tbl.
+#' @param y A tbl.
+#' @param by Columns by which to join the two tables.
+#' @param max_dist Maximum distance to use for joining.
+#' @param distance_col If given, will add a column with this name containing the
+#'   difference between the two.
 #' @param mode One of "inner", "left", "right", "full" "semi", or "anti"
 #'
 #' @examples

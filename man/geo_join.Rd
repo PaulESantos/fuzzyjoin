@@ -92,35 +92,34 @@ geo_anti_join(
 
 \item{max_dist}{Maximum distance to use for joining}
 
-\item{method}{Method to use for computing distance: one of
-"haversine" (default), "geo", "cosine", "meeus", "vincentysphere",
-"vincentyellipsoid"}
+\item{method}{Method to use for computing distance: one of "haversine"
+(default), "geo", "cosine", "meeus", "vincentysphere", "vincentyellipsoid"}
 
 \item{unit}{Unit of distance for threshold (default "miles")}
 
 \item{mode}{One of "inner", "left", "right", "full" "semi", or "anti"}
 
-\item{distance_col}{If given, will add a column with this
-name containing the geographical distance between the two}
+\item{distance_col}{If given, will add a column with this name containing the
+geographical distance between the two}
 
 \item{...}{Extra arguments passed on to the distance method}
 }
 \description{
-This allows joining based on combinations of longitudes and latitudes. If
-you are using a distance metric that is *not* based on latitude and
-longitude, use \code{\link{distance_join}} instead. Distances are
-calculated based on the \code{distHaversine}, \code{distGeo},
-\code{distCosine}, etc methods in the geosphere package.
+This allows joining based on combinations of longitudes and latitudes. If you
+are using a distance metric that is *not* based on latitude and longitude,
+use \code{\link{distance_join}} instead. Distances are calculated based on
+the \code{distHaversine}, \code{distGeo}, \code{distCosine}, etc methods in
+the geosphere package.
 }
 \details{
 "Haversine" was chosen as default since in some tests it is
-approximately the fastest method. Note that by far the slowest method is
-vincentyellipsoid, and on fuzzy joins should only be used when there are
-very few pairs and accuracy is imperative.
+  approximately the fastest method. Note that by far the slowest method is
+  vincentyellipsoid, and on fuzzy joins should only be used when there are
+  very few pairs and accuracy is imperative.
 
-If you need to use a custom geo method, you may want to write it directly
-with the \code{multi_by} and \code{multi_match_fun} arguments to
-\code{fuzzy_join}.
+  If you need to use a custom geo method, you may want to write it directly
+  with the \code{multi_by} and \code{multi_match_fun} arguments to
+  \code{fuzzy_join}.
 }
 \examples{
 
