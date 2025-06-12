@@ -10,7 +10,7 @@
 #' @param mode One of "inner", "left", "right", "full" "semi", or "anti"
 #' @param ignore_case Whether to be case insensitive (default no)
 #'
-#' @seealso \code{\link{str_detect}}
+#' @seealso \code{\link[stringr]{str_detect}}
 #'
 #' @examples
 #'

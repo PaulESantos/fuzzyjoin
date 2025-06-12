@@ -61,5 +61,5 @@ diamonds \%>\%
 
 }
 \seealso{
-\code{\link{str_detect}}
+\code{\link[stringr]{str_detect}}
 }
