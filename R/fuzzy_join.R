@@ -1,39 +1,37 @@
-#' Join two tables based not on exact matches, but with a function
-#' describing whether two vectors are matched or not
+#' Join two tables based not on exact matches, but with a function describing
+#' whether two vectors are matched or not
 #'
-#' The \code{match_fun} argument is called once on a vector with all pairs
-#' of unique comparisons: thus, it should be efficient and vectorized.
+#' The \code{match_fun} argument is called once on a vector with all pairs of
+#' unique comparisons: thus, it should be efficient and vectorized.
 #'
 #' @param x A tbl
 #' @param y A tbl
 #' @param by Columns of each to join
-#' @param match_fun Vectorized function given two columns, returning
-#' TRUE or FALSE as to whether they are a match. Can be a list of functions
-#' one for each pair of columns specified in \code{by} (if a named list, it
-#' uses the names in x).
-#' If only one function is given it is used on all column pairs.
-#' @param multi_by Columns to join, where all columns will be used to
-#' test matches together
-#' @param multi_match_fun Function to use for testing matches, performed
-#' on all columns in each data frame simultaneously
+#' @param match_fun Vectorized function given two columns, returning TRUE or
+#'   FALSE as to whether they are a match. Can be a list of functions one for
+#'   each pair of columns specified in \code{by} (if a named list, it uses the
+#'   names in x). If only one function is given it is used on all column pairs.
+#' @param multi_by Columns to join, where all columns will be used to test
+#'   matches together
+#' @param multi_match_fun Function to use for testing matches, performed on all
+#'   columns in each data frame simultaneously
 #' @param index_match_fun Function to use for matching tables. Unlike
-#' \code{match_fun} and \code{index_match_fun}, this is performed on the
-#' original columns and returns pairs of indices.
+#'   \code{match_fun} and \code{index_match_fun}, this is performed on the
+#'   original columns and returns pairs of indices.
 #' @param mode One of "inner", "left", "right", "full" "semi", or "anti"
 #' @param ... Extra arguments passed to match_fun
 #'
-#' @details match_fun should return either a logical vector, or a data
-#' frame where the first column is logical. If the latter, the
-#' additional columns will be appended to the output. For example,
-#' these additional columns could contain the distance metrics that
-#' one is filtering on.
+#' @details match_fun should return either a logical vector, or a data frame
+#'   where the first column is logical. If the latter, the additional columns
+#'   will be appended to the output. For example, these additional columns could
+#'   contain the distance metrics that one is filtering on.
 #'
-#' Note that as of now, you cannot give both \code{match_fun}
-#' and \code{multi_match_fun}- you can either compare each column
-#' individually or compare all of them.
+#'   Note that as of now, you cannot give both \code{match_fun} and
+#'   \code{multi_match_fun}- you can either compare each column individually or
+#'   compare all of them.
 #'
-#' Like in dplyr's join operations, \code{fuzzy_join} ignores groups,
-#' but preserves the grouping of x in the output.
+#'   Like in dplyr's join operations, \code{fuzzy_join} ignores groups, but
+#'   preserves the grouping of x in the output.
 #'
 #' @importFrom dplyr %>%
 #' @importFrom tibble tibble

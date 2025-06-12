@@ -83,20 +83,20 @@ distance_anti_join(
 
 \item{max_dist}{Maximum distance to use for joining}
 
-\item{method}{Method to use for computing distance, either euclidean (default)
-or manhattan.}
+\item{method}{Method to use for computing distance, either euclidean
+(default) or manhattan.}
 
 \item{mode}{One of "inner", "left", "right", "full" "semi", or "anti"}
 
-\item{distance_col}{If given, will add a column with this
-name containing the distance between the two}
+\item{distance_col}{If given, will add a column with this name containing the
+distance between the two}
 }
 \description{
-This differs from \code{\link{difference_join}} in that it considers
-all of the columns together when computing distance. This allows it
-to use metrics such as Euclidean or Manhattan that depend on multiple
-columns. Note that if you are computing with longitude or latitude,
-you probably want to use \code{\link{geo_join}}.
+This differs from \code{\link{difference_join}} in that it considers all of
+the columns together when computing distance. This allows it to use metrics
+such as Euclidean or Manhattan that depend on multiple columns. Note that if
+you are computing with longitude or latitude, you probably want to use
+\code{\link{geo_join}}.
 }
 \examples{
 

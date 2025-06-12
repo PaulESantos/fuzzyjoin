@@ -1,8 +1,8 @@
-#' Join two tables based on a regular expression in one column
-#' matching the other
+#' Join two tables based on a regular expression in one column matching the
+#' other
 #'
-#' Join a table with a string column by a regular expression column
-#' in another table
+#' Join a table with a string column by a regular expression column in another
+#' table
 #'
 #' @param x A tbl
 #' @param y A tbl

@@ -1,25 +1,23 @@
 #' Join two tables based on fuzzy string matching of their columns
 #'
-#' Join two tables based on fuzzy string matching of their columns.
-#' This is useful, for example, in matching free-form inputs in
-#' a survey or online form, where it can catch misspellings and
-#' small personal changes.
+#' Join two tables based on fuzzy string matching of their columns. This is
+#' useful, for example, in matching free-form inputs in a survey or online form,
+#' where it can catch misspellings and small personal changes.
 #'
-#' @param x A tbl
-#' @param y A tbl
-#' @param by Columns by which to join the two tables
-#' @param max_dist Maximum distance to use for joining
-#' @param ignore_case Whether to be case insensitive (default yes)
-#' @param method Method for computing string distance, see
-#' \code{stringdist-metrics} in the stringdist package.
-#' @param distance_col If given, will add a column with this
-#' name containing the difference between the two
+#' @param x A tbl.
+#' @param y A tbl.
+#' @param by Columns by which to join the two tables.
+#' @param max_dist Maximum distance to use for joining.
+#' @param ignore_case Whether to be case insensitive (default yes).
+#' @param method Method for computing string distance, see.
+#'   \code{stringdist-metrics} in the stringdist package.
+#' @param distance_col If given, will add a column with this name containing the
+#'   difference between the two.
 #' @param mode One of "inner", "left", "right", "full" "semi", or "anti"
-#' @param ... Arguments passed on to \code{\link{stringdist}}
+#' @param ... Arguments passed on to \code{\link[stringdist]{stringdist}}.
 #'
-#' @details If \code{method = "soundex"}, the \code{max_dist} is
-#' automatically set to 0.5, since soundex returns either a 0 (match)
-#' or a 1 (no match).
+#' @details If \code{method = "soundex"}, the \code{max_dist} is automatically
+#'   set to 0.5, since soundex returns either a 0 (match) or a 1 (no match).
 #'
 #' @examples
 #'

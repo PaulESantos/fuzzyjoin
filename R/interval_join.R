@@ -1,25 +1,26 @@
 #' Join two tables based on overlapping (low, high) intervals
 #'
-#' Joins tables based on overlapping intervals: for example, joining
-#' the row (1, 4) with (3, 6), but not with (5, 10). This operation is sped up
-#' using interval trees as implemented in the IRanges package. You
-#' can specify particular relationships between intervals (such as a maximum gap,
-#' or a minimum overlap) through arguments passed on to
+#' Joins tables based on overlapping intervals: for example, joining the row (1,
+#' 4) with (3, 6), but not with (5, 10). This operation is sped up using
+#' interval trees as implemented in the IRanges package. You can specify
+#' particular relationships between intervals (such as a maximum gap, or a
+#' minimum overlap) through arguments passed on to
 #' \code{\link[IRanges]{findOverlaps}}. See that documentation for descriptions
 #' of such arguments.
 #'
 #' @param x A tbl
 #' @param y A tbl
 #' @param by Columns by which to join the two tables. If provided, this must be
-#' two columns: start of interval, then end of interval
+#'   two columns: start of interval, then end of interval
 #' @param mode One of "inner", "left", "right", "full" "semi", or "anti"
 #' @param ... Extra arguments passed on to \code{\link[IRanges]{findOverlaps}}
 #'
 #' @details This allows joining on date or datetime intervals. It throws an
-#' error if the type of date/datetime disagrees between the two tables.
+#'   error if the type of date/datetime disagrees between the two tables.
 #'
-#' This requires the IRanges package from Bioconductor. See here for installation:
-#' \url{https://bioconductor.org/packages/release/bioc/html/IRanges.html}.
+#'   This requires the IRanges package from Bioconductor. See here for
+#'   installation:
+#'   \url{https://bioconductor.org/packages/release/bioc/html/IRanges.html}.
 #'
 #' @examples
 #'

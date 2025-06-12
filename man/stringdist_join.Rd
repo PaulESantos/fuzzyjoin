@@ -36,36 +36,34 @@ stringdist_semi_join(x, y, by = NULL, distance_col = NULL, ...)
 stringdist_anti_join(x, y, by = NULL, distance_col = NULL, ...)
 }
 \arguments{
-\item{x}{A tbl}
+\item{x}{A tbl.}
 
-\item{y}{A tbl}
+\item{y}{A tbl.}
 
-\item{by}{Columns by which to join the two tables}
+\item{by}{Columns by which to join the two tables.}
 
-\item{max_dist}{Maximum distance to use for joining}
+\item{max_dist}{Maximum distance to use for joining.}
 
-\item{method}{Method for computing string distance, see
+\item{method}{Method for computing string distance, see.
 \code{stringdist-metrics} in the stringdist package.}
 
 \item{mode}{One of "inner", "left", "right", "full" "semi", or "anti"}
 
-\item{ignore_case}{Whether to be case insensitive (default yes)}
+\item{ignore_case}{Whether to be case insensitive (default yes).}
 
-\item{distance_col}{If given, will add a column with this
-name containing the difference between the two}
+\item{distance_col}{If given, will add a column with this name containing the
+difference between the two.}
 
-\item{...}{Arguments passed on to \code{\link{stringdist}}}
+\item{...}{Arguments passed on to \code{\link[stringdist]{stringdist}}.}
 }
 \description{
-Join two tables based on fuzzy string matching of their columns.
-This is useful, for example, in matching free-form inputs in
-a survey or online form, where it can catch misspellings and
-small personal changes.
+Join two tables based on fuzzy string matching of their columns. This is
+useful, for example, in matching free-form inputs in a survey or online form,
+where it can catch misspellings and small personal changes.
 }
 \details{
-If \code{method = "soundex"}, the \code{max_dist} is
-automatically set to 0.5, since soundex returns either a 0 (match)
-or a 1 (no match).
+If \code{method = "soundex"}, the \code{max_dist} is automatically
+  set to 0.5, since soundex returns either a 0 (match) or a 1 (no match).
 }
 \examples{
 

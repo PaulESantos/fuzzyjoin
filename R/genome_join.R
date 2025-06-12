@@ -1,22 +1,23 @@
 #' Join two tables based on overlapping genomic intervals: both a
 #'
-#' This is an extension of \code{\link{interval_join}} specific to genomic intervals.
-#' Genomic intervals include both a chromosome ID and an interval: items are only
-#' considered matching if the chromosome ID matches and the interval overlaps.
-#' Note that there must be three arguments to by, and that they must be in the order
-#' c("chromosome", "start", "end").
+#' This is an extension of \code{\link{interval_join}} specific to genomic
+#' intervals. Genomic intervals include both a chromosome ID and an interval:
+#' items are only considered matching if the chromosome ID matches and the
+#' interval overlaps. Note that there must be three arguments to by, and that
+#' they must be in the order c("chromosome", "start", "end").
 #'
 #' @param x A tbl
 #' @param y A tbl
-#' @param by Names of columns to join on, in order c("chromosome", "start", "end").
-#' A match will be counted only if the chromosomes are equal and the start/end pairs
-#' overlap.
+#' @param by Names of columns to join on, in order c("chromosome", "start",
+#'   "end"). A match will be counted only if the chromosomes are equal and the
+#'   start/end pairs overlap.
 #' @param mode One of "inner", "left", "right", "full" "semi", or "anti"
 #' @param ... Extra arguments passed on to \code{\link[IRanges]{findOverlaps}}
 #'
 #' @details All the extra arguments to \code{\link{interval_join}}, which are
-#' passed on to \code{\link[IRanges]{findOverlaps}}, work for \code{genome_join}
-#' as well. These include \code{maxgap} and \code{minoverlap}.
+#'   passed on to \code{\link[IRanges]{findOverlaps}}, work for
+#'   \code{genome_join} as well. These include \code{maxgap} and
+#'   \code{minoverlap}.
 #'
 #' @examples
 #'

@@ -1,19 +1,19 @@
 #' Join two tables based on a distance metric of one or more columns
 #'
-#' This differs from \code{\link{difference_join}} in that it considers
-#' all of the columns together when computing distance. This allows it
-#' to use metrics such as Euclidean or Manhattan that depend on multiple
-#' columns. Note that if you are computing with longitude or latitude,
-#' you probably want to use \code{\link{geo_join}}.
+#' This differs from \code{\link{difference_join}} in that it considers all of
+#' the columns together when computing distance. This allows it to use metrics
+#' such as Euclidean or Manhattan that depend on multiple columns. Note that if
+#' you are computing with longitude or latitude, you probably want to use
+#' \code{\link{geo_join}}.
 #'
 #' @param x A tbl
 #' @param y A tbl
 #' @param by Columns by which to join the two tables
 #' @param max_dist Maximum distance to use for joining
-#' @param method Method to use for computing distance, either euclidean (default)
-#' or manhattan.
-#' @param distance_col If given, will add a column with this
-#' name containing the distance between the two
+#' @param method Method to use for computing distance, either euclidean
+#'   (default) or manhattan.
+#' @param distance_col If given, will add a column with this name containing the
+#'   distance between the two
 #' @param mode One of "inner", "left", "right", "full" "semi", or "anti"
 #'
 #' @examples

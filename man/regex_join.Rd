@@ -8,8 +8,8 @@
 \alias{regex_full_join}
 \alias{regex_semi_join}
 \alias{regex_anti_join}
-\title{Join two tables based on a regular expression in one column
-matching the other}
+\title{Join two tables based on a regular expression in one column matching the
+other}
 \usage{
 regex_join(x, y, by = NULL, mode = "inner", ignore_case = FALSE)
 
@@ -37,8 +37,8 @@ regex_anti_join(x, y, by = NULL, ignore_case = FALSE)
 \item{ignore_case}{Whether to be case insensitive (default no)}
 }
 \description{
-Join a table with a string column by a regular expression column
-in another table
+Join a table with a string column by a regular expression column in another
+table
 }
 \examples{
 
