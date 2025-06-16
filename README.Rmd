@@ -20,6 +20,7 @@ fuzzyjoin: Join data frames on inexact matching
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/dgrtwo/fuzzyjoin?branch=master&svg=true)](https://ci.appveyor.com/project/dgrtwo/fuzzyjoin)
 [![Coverage Status](https://img.shields.io/codecov/c/github/dgrtwo/fuzzyjoin/master.svg)](https://codecov.io/github/dgrtwo/fuzzyjoin?branch=master)
 
+>> Recent updates by PaulESantos ensure compatibility with current dependencies, keeping the package functional and up to date. The original code for fuzzyjoin is maintained at [dgrtwo/fuzzyjoin](https://github.com/dgrtwo/fuzzyjoin)
 
 The fuzzyjoin package is a variation on dplyr's join operations that allows matching not just on values that match between columns, but on inexact matching. This allows matching on:
 
@@ -47,16 +48,10 @@ The package also includes:
 
 ### Installation
 
-Install from CRAN with:
+Install the development version from GitHub using:
 
 ```{r eval = FALSE}
-install.packages("fuzzyjoin")
-```
-
-You can also install the development version from GitHub using [devtools](https://cran.r-project.org/package=devtools):
-
-```{r eval = FALSE}
-devtools::install_github("dgrtwo/fuzzyjoin")
+pak::pak("PaulESantos/fuzzyjoin")
 ```
 
 ### Example of `stringdist_inner_join`: Correcting misspellings against a dictionary
