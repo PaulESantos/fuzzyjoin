@@ -1,0 +1,12 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^README\.Rmd$
+^README-cache
+^README-fig
+vignettes/.*cache
+^cran-comments\.md$
+^\.travis\.yml$
+^appveyor\.yml$
+^CONDUCT\.md$
+^docs$
+^CRAN-RELEASE$
