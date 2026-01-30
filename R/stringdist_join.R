@@ -25,7 +25,7 @@
 #' library(ggplot2)
 #' data(diamonds)
 #'
-#' d <- data_frame(approximate_name = c("Idea", "Premiums", "Premioom",
+#' d <- tibble::tibble(approximate_name = c("Idea", "Premiums", "Premioom",
 #'                                      "VeryGood", "VeryGood", "Faiir"),
 #'                 type = 1:6)
 #'
@@ -43,7 +43,8 @@ stringdist_join <- function(x, y, by = NULL, max_dist = 2,
                                        "cosine", "jaccard", "jw", "soundex"),
                             mode = "inner",
                             ignore_case = FALSE,
-                            distance_col = NULL, ...) {
+                            distance_col = NULL,
+                            ...) {
   method <- match.arg(method)
 
   if (method == "soundex") {
@@ -81,7 +82,12 @@ stringdist_join <- function(x, y, by = NULL, max_dist = 2,
     ret
   }
 
-  ensure_distance_col(fuzzy_join(x, y, by = by, mode = mode, match_fun = match_fun), distance_col, mode)
+  ensure_distance_col(fuzzy_join(x, y,
+                                    by = by,
+                                    mode = mode,
+                                    match_fun = match_fun),
+                        distance_col, mode)
+
 }
 
 

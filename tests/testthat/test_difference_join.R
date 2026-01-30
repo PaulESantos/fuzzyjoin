@@ -72,3 +72,4 @@ test_that("semi and anti joins support one-column data.frames", {
   expect_equal(colnames(result), "x")
   expect_equal(nrow(result), 1)
 })
+

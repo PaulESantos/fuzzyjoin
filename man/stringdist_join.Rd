@@ -71,7 +71,7 @@ library(dplyr)
 library(ggplot2)
 data(diamonds)
 
-d <- data_frame(approximate_name = c("Idea", "Premiums", "Premioom",
+d <- tibble::tibble(approximate_name = c("Idea", "Premiums", "Premioom",
                                      "VeryGood", "VeryGood", "Faiir"),
                 type = 1:6)
 

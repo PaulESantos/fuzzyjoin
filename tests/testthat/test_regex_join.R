@@ -1,11 +1,13 @@
 context("regex_join")
 
 # setup
-d <- tibble(cut_regex = c("^Idea", "emiu",
+d <- tibble::tibble(cut_regex = c("^Idea", "emiu",
                           "Very Good$", "Nowhere")) %>%
-  mutate(type = row_number())
+  dplyr::mutate(type = dplyr::row_number())
 
 test_that("regex joins work", {
+  library(ggplot2)
+  data("diamonds")
   j <- diamonds %>%
     regex_inner_join(d, by = c(cut = "cut_regex"))
 
