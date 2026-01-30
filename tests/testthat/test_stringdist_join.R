@@ -1,18 +1,18 @@
 context("stringdist_join")
 
 # setup
-d <- tibble(
+d <- tibble::tibble(
   cut2 = c("Idea", "Premiums", "Premiom", "VeryGood", "VeryGood", "Faiir")
   ) %>%
-  mutate(type = row_number())
+  dplyr::mutate(type = dplyr::row_number())
 
 test_that("stringdist_inner_join works on a large df with multiples in each", {
   # create something with names close to the cut column in the diamonds dataset
   j <- stringdist_inner_join(diamonds, d, by = c(cut = "cut2"), distance_col = "distance")
 
   result <- j %>%
-    count(cut, cut2) %>%
-    arrange(cut)
+    dplyr::count(cut, cut2) %>%
+    dplyr::arrange(cut)
 
   expect_equal(as.character(result$cut), c("Fair", "Very Good", "Premium", "Premium", "Ideal"))
   expect_equal(result$cut2, c("Faiir", "VeryGood", "Premiom", "Premiums", "Idea"))
@@ -23,8 +23,8 @@ test_that("stringdist_inner_join works on a large df with multiples in each", {
   expect_true(all(j$distance == 1))
 
   vg <- j %>%
-    filter(cut == "Very Good") %>%
-    count(type)
+    dplyr::filter(cut == "Very Good") %>%
+    dplyr::count(type)
 
   expect_equal(vg$type, c(4, 5))
   expect_equal(vg$n, rep(sum(diamonds$cut == "Very Good"), 2))
@@ -52,7 +52,7 @@ test_that("stringdist_left_join works as expected", {
 })
 
 
-d3 <- bind_rows(d2, tibble(cut2 = "NewType", type = 4))
+d3 <- dplyr::bind_rows(d2, tibble::tibble(cut2 = "NewType", type = 4))
 
 test_that("stringdist_right_join works as expected", {
   result <- diamonds %>%
@@ -113,14 +113,14 @@ test_that("stringdist_anti_join works as expected", {
 
 test_that("stringdist_inner_join works with multiple match functions", {
   # setup
-  d3 <- tibble(
+  d3 <- tibble::tibble(
     cut2 = c(
       "Idea", "Premiums", "Premiom",
       "VeryGood", "VeryGood", "Faiir"
     ),
     carat2 = c(0, .5, 1, 1.5, 2, 2.5)
   ) %>%
-    mutate(type = row_number())
+    dplyr::mutate(type = dplyr::row_number())
 
   sdist <- function(s1, s2) stringdist::stringdist(s1, s2) <= 1
   ndist <- function(n1, n2) abs(n1 - n2) < .25
@@ -130,7 +130,7 @@ test_that("stringdist_inner_join works with multiple match functions", {
                      match_fun = list(sdist, ndist))
 
   result <- j %>%
-    count(cut, cut2)
+    dplyr::count(cut, cut2)
 
   expect_equal(as.character(result$cut), c("Fair", "Very Good", "Premium", "Premium", "Ideal"))
   expect_equal(result$cut2, c("Faiir", "VeryGood", "Premiom", "Premiums", "Idea"))
@@ -151,14 +151,14 @@ test_that("stringdist_join works with data frames without matches", {
     "Ideolll", "Premiumsss", "Premiomzzz",
     "VeryVeryGood", "VeryVeryGood", "FaiirsFair"
   )) %>%
-    mutate(type = row_number())
+    dplyr::mutate(type = dplyr::row_number())
 
   j1 <- stringdist_inner_join(diamonds, d, by = c(cut = "cut2"))
   expect_equal(nrow(j1), 0)
   expect_true(all(c("carat", "cut", "cut2", "type") %in% colnames(j1)))
 
   # check it works when column names are the same
-  d2 <- rename(d, cut = cut2)
+  d2 <-dplyr::rename(d, cut = cut2)
   j1_5 <- stringdist_inner_join(diamonds, d2, by = c(cut = "cut"))
   expect_equal(nrow(j1_5), 0)
   expect_true(all(c("carat", "cut.x", "cut.y", "type") %in% colnames(j1_5)))
@@ -193,7 +193,7 @@ test_that("stringdist_join works with data frames without matches", {
 
 test_that("stringdist_join can ignore case", {
   d_lowercase <- d %>%
-    mutate(cut2 = stringr::str_to_lower(cut2))
+    dplyr::mutate(cut2 = stringr::str_to_lower(cut2))
 
   # no matches generally
   j1 <- stringdist_inner_join(diamonds, d_lowercase, by = c(cut = "cut2"), distance_col = "distance",
@@ -201,7 +201,8 @@ test_that("stringdist_join can ignore case", {
   expect_equal(nrow(j1), 0)
 
   # but with case ignored...
-  j2 <- stringdist_inner_join(diamonds, d_lowercase, by = c(cut = "cut2"), distance_col = "distance",
+  j2 <- stringdist_inner_join(diamonds, d_lowercase, by = c(cut = "cut2"),
+                              distance_col = "distance",
                               ignore_case = TRUE, max_dist = 1)
   expect_gt(nrow(j2), 0)
   expect_equal(sum(j2$cut == "Premium"), sum(diamonds$cut == "Premium") * 2)
@@ -219,11 +220,11 @@ test_that("stringdist_join can use soundex matching", {
 
 
 test_that("stringdist_join renames similar columns", {
-  d <- tibble(cut = c(
+  d <- tibble::tibble(cut = c(
     "Idea", "Premiums", "Premiom",
     "VeryGood", "VeryGood", "Faiir"
   )) %>%
-    mutate(price = row_number())
+    dplyr::mutate(price = dplyr::row_number())
 
   j <- stringdist_inner_join(diamonds, d, by = "cut")
 
@@ -254,20 +255,20 @@ test_that(paste("stringdist_join returns a data.frame when x",
 })
 
 test_that("stringdist_join works on grouped data frames", {
-  d <- tibble(cut2 = c(
+  d <- tibble::tibble(cut2 = c(
     "Idea", "Premiums", "Premiom",
     "VeryGood", "VeryGood", "Faiir"
   )) %>%
-    mutate(type = row_number())
+    dplyr::mutate(type = dplyr::row_number())
 
   diamonds_grouped <- diamonds %>%
-    group_by(cut)
+    dplyr::group_by(cut)
 
-  d2 <- tibble(cut = c(
+  d2 <- tibble::tibble(cut = c(
     "Idea", "Premiums", "Premiom",
     "VeryGood", "VeryGood", "Faiir"
   )) %>%
-    mutate(type = row_number())
+    dplyr::mutate(type = dplyr::row_number())
 
   for (mode in c("inner", "left", "right", "full", "semi", "anti")) {
     j1 <- stringdist_join(diamonds, d, by = c(cut = "cut2"), mode = mode)
@@ -308,8 +309,8 @@ test_that("stringdist fails with no common variables", {
 })
 
 test_that("stringdist_ joins where there are no overlapping rows still get a distance column", {
-  a <- tibble(x = c("apple", "banana"))
-  b <- tibble(y = c("orange", "mango"))
+  a <- tibble::tibble(x = c("apple", "banana"))
+  b <- tibble::tibble(y = c("orange", "mango"))
 
   result <- stringdist_left_join(a, b, by = c(x = "y"), max_dist = 1, distance_col = "distance")
 
@@ -331,3 +332,4 @@ test_that("stringdist_ joins where there are no overlapping rows still get a dis
   result <- stringdist_anti_join(a, b, by = c(x = "y"), max_dist = 1, distance_col = "distance")
   expect_equal(a, result)
 })
+

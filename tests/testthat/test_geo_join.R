@@ -1,11 +1,11 @@
 context("geo_join")
 
 set.seed(2016)
-latlong1 <- tibble(index1 = 1:500,
+latlong1 <- tibble::tibble(index1 = 1:500,
                    latitude = rnorm(500, 40),
                    longitude = rnorm(500, 40))
 
-latlong2 <- tibble(index2 = 1:500,
+latlong2 <- tibble::tibble(index2 = 1:500,
                    latitude = rnorm(500, 40),
                    longitude = rnorm(500, 40))
 
@@ -65,16 +65,16 @@ test_that("geo_inner_join works when lat/lon columns have different names", {
     geo_inner_join(latlong2, max_dist = 1, distance_col = "distance")
 
   j2 <- latlong1 %>%
-    select(index1, longitude, latitude) %>%
+    dplyr::select(index1, longitude, latitude) %>%
     geo_inner_join(latlong2, max_dist = 1, distance_col = "distance")
 
   expect_equal(j, j2[colnames(j)])
 
   l1 <- latlong1 %>%
-    select(index1, Lat = latitude, Lon = longitude)
+    dplyr::select(index1, Lat = latitude, Lon = longitude)
 
   l2 <- latlong2 %>%
-    select(index2, Lon = longitude, Lat = latitude)
+    dplyr::select(index2, Lon = longitude, Lat = latitude)
 
   j3 <- geo_inner_join(l1, l2, max_dist = 1, distance_col = "distance")
 
@@ -83,16 +83,16 @@ test_that("geo_inner_join works when lat/lon columns have different names", {
 })
 
 test_that("geo_inner_join throws an error when more than two columns match", {
-  latlongother1 <- mutate(latlong1, other = 1)
-  latlongother2 <- mutate(latlong1, other = 2)
+  latlongother1 <- dplyr::mutate(latlong1, other = 1)
+  latlongother2 <- dplyr::mutate(latlong1, other = 2)
 
   expect_error(geo_inner_join(latlongother1, latlongother2),
                "needs exactly two")
 })
 
 test_that("geo joins where there are no overlapping rows still get a distance column", {
-  a <- tibble(lat = 1:10, lon = 1:10)
-  b <- tibble(lat = 21:30, lon = 21:30)
+  a <- tibble::tibble(lat = 1:10, lon = 1:10)
+  b <- tibble::tibble(lat = 21:30, lon = 21:30)
 
   result <- geo_left_join(a, b, by = c("lat", "lon"), max_dist = 1, distance_col = "distance")
 

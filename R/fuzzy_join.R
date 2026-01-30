@@ -38,8 +38,8 @@
 #'
 #' @export
 fuzzy_join <- function(x, y, by = NULL, match_fun = NULL,
-                       multi_by = NULL, multi_match_fun = NULL,
-                       index_match_fun = NULL, mode = "inner", ...) {
+                         multi_by = NULL, multi_match_fun = NULL,
+                         index_match_fun = NULL, mode = "inner", ...) {
   # preserve the grouping of x
   x_groups <- dplyr::groups(x)
   x <- dplyr::ungroup(x)
@@ -53,7 +53,7 @@ fuzzy_join <- function(x, y, by = NULL, match_fun = NULL,
     # add .x to those that are missing; they've been renamed
     g[missing] <- paste0(g[missing], ".x")
 
-    dplyr::group_by_at(d, g)
+    dplyr::group_by(d, dplyr::across(dplyr::all_of(g)))
   }
 
   mode <- match.arg(mode, c("inner", "left", "right", "full", "semi", "anti"))
@@ -171,9 +171,9 @@ fuzzy_join <- function(x, y, by = NULL, match_fun = NULL,
           dplyr::semi_join(accept, by = c("x", "y")) %>%
           dplyr::mutate(name = by$x[i]) %>%
           dplyr::select(-i) %>%
-          tidyr::gather(key, value, -x, -y, -name) %>%
+          tidyr::pivot_longer(c(-x, -y, -name), names_to = "key", values_to = "value") %>%
           tidyr::unite(newname, name, key, sep = ".") %>%
-          tidyr::spread(newname, value)
+          tidyr::pivot_wider(names_from = newname, values_from = value)
       } else {
         matches <- dplyr::distinct(matches, x, y)
       }
@@ -188,15 +188,15 @@ fuzzy_join <- function(x, y, by = NULL, match_fun = NULL,
     number_y_rows <- nrow(y)
 
     indices_x <- x %>%
-      dplyr::select_at(by$x) %>%
+      dplyr::select(dplyr::all_of(by$x)) %>%
       dplyr::mutate(indices = seq_len(number_x_rows)) %>%
-      dplyr::group_by_at(dplyr::vars(-dplyr::one_of("indices"))) %>%
+      dplyr::group_by(dplyr::across(-dplyr::all_of("indices"))) %>%
       tidyr::nest() %>%
       dplyr::mutate(indices = purrr::map(data, "indices"))
     indices_y <- y %>%
-      dplyr::select_at(by$y) %>%
+      dplyr::select(dplyr::all_of(by$y)) %>%
       dplyr::mutate(indices = seq_len(number_y_rows)) %>%
-      dplyr::group_by_at(dplyr::vars(-dplyr::one_of("indices"))) %>%
+      dplyr::group_by(dplyr::across(-dplyr::all_of("indices"))) %>%
       tidyr::nest() %>%
       dplyr::mutate(indices = purrr::map(data, "indices"))
 
@@ -265,8 +265,10 @@ fuzzy_join <- function(x, y, by = NULL, match_fun = NULL,
 
   # in cases where columns share a name, rename each to .x and .y
   n <- intersect(colnames(x), colnames(y))
-  x <- dplyr::rename_at(x, .vars = n, ~ paste0(.x, ".x"))
-  y <- dplyr::rename_at(y, .vars = n, ~ paste0(.x, ".y"))
+  if (length(n) > 0) {
+    x <- dplyr::rename_with(x, ~ paste0(.x, ".x"), .cols = dplyr::all_of(n))
+    y <- dplyr::rename_with(y, ~ paste0(.x, ".y"), .cols = dplyr::all_of(n))
+  }
 
   # fill in indices of the x, y, or both
   # curious if there's a higher performance approach

@@ -7,7 +7,7 @@ test_that("distance_inner_join works for Euclidean distance", {
     distance_inner_join(sepal_lengths, max_dist = .25,
                         by = c("Sepal.Length", "Sepal.Width"),
                         distance_col = "distance") %>%
-    mutate(calculated_distance = sqrt((Sepal.Length.x - Sepal.Length.y) ^ 2 +
+    dplyr::mutate(calculated_distance = sqrt((Sepal.Length.x - Sepal.Length.y) ^ 2 +
                                         (Sepal.Width.x - Sepal.Width.y) ^ 2))
 
   expect_true(nrow(ret) > 0)
@@ -29,7 +29,7 @@ test_that("distance_inner_join works for Manhattan distance", {
                         by = c("Sepal.Length", "Sepal.Width"),
                         method = "manhattan",
                         distance_col = "distance") %>%
-    mutate(calculated_distance = abs(Sepal.Length.x - Sepal.Length.y) +
+    dplyr::mutate(calculated_distance = abs(Sepal.Length.x - Sepal.Length.y) +
              abs(Sepal.Width.x - Sepal.Width.y))
 
   expect_true(nrow(ret2) > 0)
@@ -42,7 +42,7 @@ test_that("distance_ functions besides inner work", {
     distance_left_join(sepal_lengths, max_dist = .25,
                         by = c("Sepal.Length", "Sepal.Width"),
                        distance_col = "distance") %>%
-    mutate(calculated_distance = sqrt((Sepal.Length.x - Sepal.Length.y) ^ 2 +
+    dplyr::mutate(calculated_distance = sqrt((Sepal.Length.x - Sepal.Length.y) ^ 2 +
                                         (Sepal.Width.x - Sepal.Width.y) ^ 2))
 
   expect_equal(nrow(iris), nrow(ret2))
@@ -53,7 +53,7 @@ test_that("distance_ functions besides inner work", {
     distance_right_join(sepal_lengths, max_dist = .25,
                        by = c("Sepal.Length", "Sepal.Width"),
                        distance_col = "distance") %>%
-    mutate(calculated_distance = sqrt((Sepal.Length.x - Sepal.Length.y) ^ 2 +
+    dplyr::mutate(calculated_distance = sqrt((Sepal.Length.x - Sepal.Length.y) ^ 2 +
                                         (Sepal.Width.x - Sepal.Width.y) ^ 2))
 
   expect_equal(sum(!is.na(ret2$calculated_distance)) + 1, nrow(ret3))
@@ -64,7 +64,7 @@ test_that("distance_ functions besides inner work", {
     distance_full_join(sepal_lengths, max_dist = .25,
                         by = c("Sepal.Length", "Sepal.Width"),
                         distance_col = "distance") %>%
-    mutate(calculated_distance = sqrt((Sepal.Length.x - Sepal.Length.y) ^ 2 +
+    dplyr::mutate(calculated_distance = sqrt((Sepal.Length.x - Sepal.Length.y) ^ 2 +
                                         (Sepal.Width.x - Sepal.Width.y) ^ 2))
 
   expect_equal(nrow(iris) + 1, nrow(ret4))
@@ -88,8 +88,8 @@ test_that("distance_ functions besides inner work", {
 })
 
 test_that("distance_inner_join works when there's only one distance column", {
-  a <- tibble(x = 1:10)
-  b <- tibble(y = 3:12)
+  a <- tibble::tibble(x = 1:10)
+  b <- tibble::tibble(y = 3:12)
 
   result <- distance_inner_join(a, b, by = c("x" = "y"), max_dist = 1.5, distance_col = "distance")
   expect_equal(nrow(result), 24)
@@ -97,8 +97,8 @@ test_that("distance_inner_join works when there's only one distance column", {
 })
 
 test_that("distance joins where there are no overlapping rows still get a distance column", {
-  a <- tibble(x = 1:10, y = 1:10)
-  b <- tibble(x = 21:30, y = 21:30)
+  a <- tibble::tibble(x = 1:10, y = 1:10)
+  b <- tibble::tibble(x = 21:30, y = 21:30)
 
   result <- distance_left_join(a, b, by = c("x", "y"), max_dist = 1, distance_col = "distance")
 
